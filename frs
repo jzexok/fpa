@@ -1,0 +1,73 @@
+getgenv().fpa_auto = true
+
+local a = loadstring(game:HttpGet('https://raw.githubusercontent.com/jensonhirst/Orion/main/source'))()
+local b = a:MakeWindow({Name = "FPA - IN BETA", HidePremium = false, SaveConfig = true, ConfigFolder = "FPA"})
+local c = b:MakeTab({Name = "Forsaken", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local d = c:AddSection({Name = "Autofarm and other"})
+
+local e, f, g = false, false, false
+
+c:AddToggle({
+	Name = "Invisibility",
+	Default = false,
+	Callback = function(v)
+		e = v
+	end
+})
+
+c:AddToggle({
+	Name = "Complete All Generators",
+	Default = false,
+	Callback = function(v)
+		f = v
+	end
+})
+
+c:AddToggle({
+	Name = "Serverhop",
+	Default = false,
+	Callback = function(v)
+		g = v
+	end
+})
+
+local h = c:AddSection({Name = "Starting"})
+
+local function q()
+	if e then
+		local i = game.Players.LocalPlayer.Character
+		if i and i:FindFirstChild("HumanoidRootPart") then
+			i.HumanoidRootPart.Anchored = true
+		end
+	end
+	if f then
+		for _, j in pairs(workspace:GetDescendants()) do
+			if j.Name == "Generator" and j:FindFirstChild("Complete") then
+				fireclickdetector(j.Complete)
+			end
+		end
+	end
+	if g then
+		local k = game:GetService("ReplicatedStorage"):FindFirstChild("RoundTimer")
+		if k and tostring(k.Value) ~= "Round begins in:" then
+			local l = game:GetService("TeleportService")
+			local m = game.PlaceId
+			local n = game.JobId
+			local r = game:HttpGet('https://raw.githubusercontent.com/yourusername/yourrepo/main/fpa_autofarm.lua')
+			queueonteleport(r)
+			l:TeleportToPlaceInstance(m, n)
+		end
+	end
+end
+
+c:AddButton({
+	Name = "Autofarm",
+	Callback = function()
+		q()
+	end
+})
+
+if getgenv().fpa_auto then
+	task.wait(2)
+	q()
+end
