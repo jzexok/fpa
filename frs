@@ -53,7 +53,7 @@ local function q()
 			local l = game:GetService("TeleportService")
 			local m = game.PlaceId
 			local n = game.JobId
-			local r = game:HttpGet('https://raw.githubusercontent.com/yourusername/yourrepo/main/fpa_autofarm.lua')
+			local r = game:HttpGet('https://raw.githubusercontent.com/jzexok/fpa/refs/heads/main/frs')
 			queueonteleport(r)
 			l:TeleportToPlaceInstance(m, n)
 		end
